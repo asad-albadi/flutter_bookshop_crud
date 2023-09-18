@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 deploy.sh
+statistics.json
+lib/API
+lib/API/api.py
+lib/API/api.py

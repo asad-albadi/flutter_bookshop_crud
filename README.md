@@ -122,6 +122,70 @@ To start using the House of Wisdom Bookshop Management System:
 - **Description**: Modifies an existing book's details.
 - **Request Body**: JSON data containing modified book details.
 
+## Database Analysis Statistics
+
+### Total Orders
+- **Purpose**: Calculate the total number of orders.
+- **Benefits**: Provides an overview of order volume.
+- **Results**: An integer representing the total number of orders.
+
+### Total Revenue
+- **Purpose**: Calculate the total revenue generated from orders.
+- **Benefits**: Helps assess the financial performance of the business.
+- **Results**: A floating-point number representing the total revenue.
+
+### Sold Books
+- **Purpose**: Calculate the total quantity of books sold.
+- **Benefits**: Provides insights into product sales performance.
+- **Results**: An integer representing the total quantity of books sold.
+
+### Average Order Value (AOV)
+- **Purpose**: Calculate the average value of each order.
+- **Benefits**: Helps understand the typical order size and customer spending.
+- **Results**: A floating-point number representing the average order value.
+
+### Top Selling Books
+- **Purpose**: Identify and count the top-selling books.
+- **Benefits**: Helps focus on popular products and optimize inventory.
+- **Results**: A dictionary with book IDs as keys and total quantities sold as values.
+
+### Most Frequent Customers
+- **Purpose**: Identify and count the most frequent customers.
+- **Benefits**: Targeted marketing and customer retention efforts.
+- **Results**: A dictionary with customer names (phone numbers) as keys and order counts as values.
+
+### Order Frequencies
+- **Purpose**: Calculate the order frequency of customers.
+- **Benefits**: Identifying customer engagement and loyalty.
+- **Results**: A dictionary with customer names (phone numbers) as keys and order frequencies as values.
+
+### Customer Retention Rate
+- **Purpose**: Determine the percentage of retained customers.
+- **Benefits**: Measure customer loyalty and business sustainability.
+- **Results**: A floating-point number representing the customer retention rate.
+
+### Sales by Genre
+- **Purpose**: Analyze sales performance by book genre.
+- **Benefits**: Identify popular genres and adjust product offerings.
+- **Results**: A dictionary with genre names as keys and total quantities sold as values.
+
+### Geographic Analysis
+- **Purpose**: Analyze customer distribution by geographic location.
+- **Benefits**: Target marketing campaigns and optimize shipping.
+- **Results**: A dictionary with addresses as keys and customer counts as values.
+
+### Time-Based Trends
+- **Purpose**: Identify the oldest and newest orders.
+- **Benefits**: Monitor trends in order placement over time.
+- **Results**: A dictionary with timestamps of the oldest and newest orders.
+
+### Inventory Management
+- **Purpose**: Manage and monitor inventory levels for each book.
+- **Benefits**: Avoid stockouts and overstock situations.
+- **Results**: A dictionary with book IDs as keys and current stock counts as values.
+
+[//]: # (Add sections for Customer Segmentation and Customer Lifetime Value if applicable)
+
 ## Contributing
 
 If you would like to contribute to this project, follow these steps:

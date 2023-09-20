@@ -39,6 +39,8 @@ dependencies:
   motion_toast: ^2.7.8
   http: ^1.1.0
   cached_network_image: ^3.2.3
+  fl_chart: ^0.63.0
+  syncfusion_flutter_charts: ^23.1.36
 
 dev_dependencies:
   flutter_test:

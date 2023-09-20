@@ -70,6 +70,14 @@ class _OrdersState extends State<Orders> {
     fetchOrders();
   }
 
+  @override
+  void dispose() {
+    booksData = [];
+    selectedBook = null;
+
+    super.dispose();
+  }
+
   Future<void> fetchOrders() async {
     var response;
     orderData.clear();

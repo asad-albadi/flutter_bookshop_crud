@@ -339,6 +339,15 @@ class _DashboardState extends State<Dashboard> {
     final sideTableHeight = screenHeight - 150;
     final graphWidth = screenWidth - sideTableWidth - 85;
     final graphHeight = screenHeight - 150;
+    setState(() {
+      _isLoading = true;
+    });
+    final total_revenue = summaryData['total_revenue'] ?? 0;
+    final average_order_value = summaryData['average_order_value'] ?? 0;
+    final customer_retention_rate = summaryData['customer_retention_rate'] ?? 0;
+    setState(() {
+      _isLoading = false;
+    });
 
     return Scaffold(
       body: _isLoading
@@ -356,7 +365,7 @@ class _DashboardState extends State<Dashboard> {
                     Expanded(
                       flex: 1,
                       child: topCard('Total Revenue',
-                          '${summaryData['total_revenue'].toStringAsFixed(3)} OMR'),
+                          '${total_revenue.toStringAsFixed(3)} OMR'),
                     ),
                     Expanded(
                       flex: 1,
@@ -366,14 +375,12 @@ class _DashboardState extends State<Dashboard> {
                     Expanded(
                       flex: 1,
                       child: topCard('Average Order Value',
-                          '${summaryData['average_order_value'].toStringAsFixed(3)} OMR'),
+                          '${average_order_value.toStringAsFixed(3)} OMR'),
                     ),
                     Expanded(
                       flex: 1,
-                      child: topCard(
-                          'Retention Rate',
-                          summaryData['customer_retention_rate']
-                              .toStringAsFixed(3)),
+                      child: topCard('Retention Rate',
+                          customer_retention_rate.toStringAsFixed(3)),
                     ),
                   ],
                 ),

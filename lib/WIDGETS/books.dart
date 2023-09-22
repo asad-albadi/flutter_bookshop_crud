@@ -501,10 +501,9 @@ class _BookCardState extends State<BookCard> {
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.zero,
-                    color: Colors.purple.withOpacity(0.5)),
+                    color: background.withOpacity(0.5)),
                 child: IconButton(
-                  color:
-                      Colors.white, // Change 'background' to the desired color
+                  color: foreground, // Change 'background' to the desired color
                   icon: const Icon(
                       Icons.edit), // Replace 'your_icon' with the desired icon
                   onPressed: () {

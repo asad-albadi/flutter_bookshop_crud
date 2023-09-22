@@ -15,7 +15,6 @@ class Dashboard extends StatefulWidget {
 
 List<dynamic> booksData = [];
 Map<String, dynamic> summaryData = {};
-bool _isLoading = false;
 
 String getTitleAuthorById(List<dynamic> booksData, String id) {
   for (var book in booksData) {
@@ -76,22 +75,15 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    setState(() {
-      _isLoading = true;
-    });
+    super.initState();
     fetchSummary();
     fetchBooks();
-    super.initState();
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
   void dispose() {
     booksData = [];
     summaryData = {};
-    _isLoading = false;
 
     super.dispose();
   }
@@ -367,18 +359,12 @@ class _DashboardState extends State<Dashboard> {
     final sideTableHeight = screenHeight - 150;
     final graphWidth = screenWidth - sideTableWidth - 85;
     final graphHeight = screenHeight - 150;
-    setState(() {
-      _isLoading = true;
-    });
     final total_revenue = summaryData['total_revenue'] ?? 0;
     final average_order_value = summaryData['average_order_value'] ?? 0;
     final customer_retention_rate = summaryData['customer_retention_rate'] ?? 0;
-    setState(() {
-      _isLoading = false;
-    });
 
     return Scaffold(
-      body: _isLoading
+      body: summaryData.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [

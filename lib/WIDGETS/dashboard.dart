@@ -96,45 +96,49 @@ class _DashboardState extends State<Dashboard> {
     super.dispose();
   }
 
-  Widget topCard(String title, String content) {
+  Widget topCard(Color color, String title, String content) {
     return SizedBox(
       height: 90,
       child: Card(
         // Wrap the Card in a Stack to overlay the IconButton
-        child: Stack(
-          children: [
-            Positioned(
-              left: 0,
-              top: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  title,
-                  softWrap: false,
-                  style: const TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(width: 3.0, color: color),
               ),
             ),
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  content,
-                  style: const TextStyle(
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 30.0,
+            child: Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  child: Text(
+                    title,
+                    softWrap: false,
+                    style: const TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Text(
+                    content,
+                    style: const TextStyle(
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 30.0,
+                    ),
+                  ),
+                ),
+                // Positioned widget to place the IconButton at the top-left corner
+              ],
             ),
-            // Positioned widget to place the IconButton at the top-left corner
-          ],
+          ),
         ),
       ),
     );
@@ -154,23 +158,47 @@ class _DashboardState extends State<Dashboard> {
       }
 
       // Get the top 3 entries
-      final top3Data = sortedData.entries.take(limit).toList();
+      final topData = sortedData.entries.take(limit).toList();
 
-      List<DataColumn> columns = [
-        DataColumn(
-            label: SizedBox(
-                width: sideTableWidth - 150, child: Text(firstColumn))),
-        const DataColumn(label: SizedBox(width: 150, child: Text('Count'))),
-      ];
-
+      List<DataColumn> columns = [];
       List<DataRow> rows = [];
+      if (!title.contains('Books') && !title.contains('Stock')) {
+        columns = [
+          DataColumn(
+              label: SizedBox(
+                  width: sideTableWidth - 150, child: Text(firstColumn))),
+          const DataColumn(label: SizedBox(width: 150, child: Text('Count'))),
+        ];
 
-      top3Data.forEach((entry) {
-        rows.add(DataRow(cells: [
-          DataCell(Text(getTitleAuthorById(booksData, entry.key))),
-          DataCell(Text(entry.value.toString())),
-        ]));
-      });
+        topData.forEach((entry) {
+          rows.add(DataRow(cells: [
+            DataCell(Text(entry.key)),
+            DataCell(Text(entry.value.toString())),
+          ]));
+        });
+      } else {
+        columns = [
+          DataColumn(
+              label: SizedBox(
+                  width: (sideTableWidth - 100) / 3,
+                  child: const Text('Title'))),
+          DataColumn(
+              label: SizedBox(
+                  width: (sideTableWidth - 100) / 3,
+                  child: const Text('Author'))),
+          const DataColumn(label: SizedBox(width: 100, child: Text('Count'))),
+        ];
+
+        topData.forEach((entry) {
+          rows.add(DataRow(cells: [
+            DataCell(
+                Text(getTitleAuthorById(booksData, entry.key).split(' | ')[0])),
+            DataCell(
+                Text(getTitleAuthorById(booksData, entry.key).split(' | ')[1])),
+            DataCell(Text(entry.value.toString())),
+          ]));
+        });
+      }
 
       return Card(
         // Wrap the Card in a Stack to overlay the IconButton
@@ -359,28 +387,33 @@ class _DashboardState extends State<Dashboard> {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: topCard('Total Orders',
+                      child: topCard(pink, 'Total Orders',
                           summaryData['total_orders'].toString()),
                     ),
                     Expanded(
                       flex: 1,
-                      child: topCard('Total Revenue',
+                      child: topCard(green, 'Total Revenue',
                           '${total_revenue.toStringAsFixed(3)} OMR'),
                     ),
                     Expanded(
                       flex: 1,
-                      child: topCard(
-                          'Sold Books', summaryData['sold_books'].toString()),
+                      child: topCard(cyan, 'Sold Books',
+                          summaryData['sold_books'].toString()),
                     ),
                     Expanded(
                       flex: 1,
-                      child: topCard('Average Order Value',
+                      child: topCard(orange, 'Average Order Value',
                           '${average_order_value.toStringAsFixed(3)} OMR'),
                     ),
                     Expanded(
                       flex: 1,
-                      child: topCard('Retention Rate',
+                      child: topCard(yellow, 'Retention Rate',
                           customer_retention_rate.toStringAsFixed(3)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: topCard(pink, 'Books In Stock',
+                          '${summaryData['unique_books_in_stock']} | ${summaryData['total_books_in_stock']}'),
                     ),
                   ],
                 ),

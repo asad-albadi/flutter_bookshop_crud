@@ -22,7 +22,7 @@ const Color red = Color(0xFFFF5555);
 const Color yellow = Color(0xFFF1FA8C);
 
 // ignore: constant_identifier_names
-const String API_URL = 'http://192.168.100.64:5000';
+const String API_URL = 'http://10.10.12.57:5000';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

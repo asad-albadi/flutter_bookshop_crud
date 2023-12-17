@@ -173,13 +173,12 @@ class _BooksState extends State<Books> {
                 };
                 var response = await createBook(newOrder);
 
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pop();
                 setState(() {
                   created_book_id = response;
                   fetchData();
                 });
-
-                // ignore: use_build_context_synchronously
-                Navigator.of(context).pop();
               },
               child: const Text('Submit'),
             ),
@@ -187,6 +186,10 @@ class _BooksState extends State<Books> {
         );
       },
     );
+  }
+
+  void refreshData() {
+    fetchData();
   }
 
   @override
@@ -287,7 +290,11 @@ class _BooksState extends State<Books> {
                               runSpacing:
                                   10.0, // Adjust the spacing between rows as needed
                               children: filterFull().map((book) {
-                                return BookCard(book);
+                                // Make sure to return the widget from the map function
+                                return BookCard(
+                                  book,
+                                  refreshCallback: refreshData,
+                                );
                               }).toList(),
                             ),
                           ],
@@ -302,8 +309,10 @@ class _BooksState extends State<Books> {
 
 class BookCard extends StatefulWidget {
   final Map<String, dynamic> bookData;
+  final VoidCallback refreshCallback;
 
-  const BookCard(this.bookData, {Key? key}) : super(key: key);
+  const BookCard(this.bookData, {Key? key, required this.refreshCallback})
+      : super(key: key);
 
   @override
   _BookCardState createState() => _BookCardState();
@@ -325,10 +334,10 @@ class _BookCardState extends State<BookCard> {
 
     if (response.statusCode == 200) {
       modifiedBook = response.body;
-      print('Book created successfully');
+      print('Book modified successfully');
     } else {
       // Request failed
-      print('Failed to create book. Status code: ${response.statusCode}');
+      print('Failed to modify book. Status code: ${response.statusCode}');
       print('Response body: ${response.body}');
     }
     return modifiedBook;
@@ -416,6 +425,8 @@ class _BookCardState extends State<BookCard> {
                   'count': int.parse(countController.text),
                 };
                 modifyBook(modifiedBook);
+
+                widget.refreshCallback();
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               },

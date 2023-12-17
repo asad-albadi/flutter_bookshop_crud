@@ -18,7 +18,7 @@ class MyHomePage extends StatefulWidget {
 bool _isExpanded = false; //NEW VARIABLE
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   // Define a list of pages for each destination
   final List<Widget> _pages = [
